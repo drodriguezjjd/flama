@@ -26,11 +26,11 @@
     --color-primary-border:#EC0000;
     --color-primary-text:#FFFFFF;
 
-    --color-hover:#CC0000; /* Boston */
+    --color-hover:#CC0000;
     --color-hover-border:#CC0000;
     --color-hover-text:#FFFFFF;
 
-    --color-active:#990000; /* Ruby */
+    --color-active:#990000;
     --color-active-border:#990000;
     --color-active-text:#FFFFFF;
 
@@ -69,7 +69,6 @@
 
     --transition:0.3s;
     --transition-fast:0.1s;
-    /* --transition-delay:500ms; */
 
     --spinner-big:158px;
     --spinner-medium:120px;
@@ -834,7 +833,6 @@ fl-nav {
     border-radius:var(--round-input);
     box-shadow:var(--shadow);
     transition:var(--transition);
-    /* transition-delay:0ms; */
     opacity:0;
     pointer-events:none;
 }
@@ -842,7 +840,6 @@ fl-nav {
     *:focus > fl-nav,
     fl-nav-item:hover > fl-nav,
     fl-nav[visible] {
-        /* transition-delay:var(--transition-delay); */
         opacity:1;
         pointer-events:all;
     }
@@ -1698,8 +1695,7 @@ fl-input {
         border-bottom:var(--border) solid var(--color-secundary);
         padding:var(--spacing);
         transition:var(--transition);
-        /* transition-delay:0ms; */
-        margin-top:-10px;
+        margin-top:-+10px;
         opacity:0;
         pointer-events:none;
         background-color: var(--color-clear);
@@ -1714,8 +1710,7 @@ fl-input {
         border-radius:var(--round-input);
         border:var(--border) solid var(--color-clear-border);
         transition:var(--transition);
-        /* transition-delay:0ms; */
-        margin-top:-10px;
+        margin-top:10px;
         opacity:0;
         pointer-events:none;
     }
@@ -1731,14 +1726,13 @@ fl-input {
         top:auto;
         bottom:50%;
         margin-top:auto;
-        margin-bottom:-10px;
+        margin-bottom:10px;
     }
     fl-action:focus > fl-list {
         margin-top:0;
         margin-bottom:0;
         opacity:1;
         pointer-events:all;
-        /* transition-delay:var(--transition-delay); */
     }
 
     *:has(>fl-select) > fl-dropdown,
@@ -1764,7 +1758,6 @@ fl-input {
             margin-top:0;
             opacity:1;
             pointer-events:all;
-            /* transition-delay:var(--transition-delay); */
         }
 
     fl-list {

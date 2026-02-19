@@ -43,15 +43,16 @@ $(function(){
                  * text: Texto de la accion,
                  * type: ''* | outline | disabled
                  * closes: boolean
-                 * onClose: () => {}
+                 * event: '' | nombre del evento
                  * onPress: (index, action) => {}
                  */
                 return $.extend({}, {
                     text:false,
                     type:'',
                     closes:false,
+                    event:false,
                     onPress:(index, action) => {}
-                }, options)
+                }, action)
             });
             var modal = $(`
                 <fl-modal>
@@ -70,14 +71,17 @@ $(function(){
                     return $(`<fl-button small ${action.type}>${action.text}</fl-button>`).on('click', function(e){
                         e.preventDefault();
                         action.onPress(index, action);
-                        if(actions.closes){
+                        if(action.closes){
                             modal.visible(false);
-                            modal.trigger('close');
+                            modal.trigger('close', [index, action]);
+                        }
+                        if(action.event){
+                            modal.trigger(action.event, [index, action]);
                         }
                     })
                 })
             );
-            return modal.appendTo('body');
+            return modal.appendTo('body').visible();
         },
         alert:function(
             options
@@ -88,20 +92,51 @@ $(function(){
                     message:options
                 };
             }
-            var settings = $.extend({}, {
+            return this.message($.extend({}, {
                 title:false,
                 icon:false,
                 message:false,
                 actions:[
-
+                    {
+                        text:'Aceptar',
+                        event:'accept',
+                        closes:true
+                    }
                 ]
-            }, options);
+            }, options));
+        },
+        confirm:function(
+            options
+        ){
+            if(typeof options == 'string'){
+                options = {
+                    title:'Mensaje del sistema',
+                    message:options
+                };
+            }
+            return this.message($.extend({}, {
+                title:false,
+                icon:false,
+                message:false,
+                actions:[
+                    {
+                        text:'Cancelar',
+                        type:'outline',
+                        event:'cancel',
+                        closes:true
+                    },
+                    {
+                        text:'Aceptar',
+                        event:'accept',
+                        closes:true
+                    }
+                ]
+            }, options));
         },
         init:function(){
-
+            $('fl-input > select').selector();
         }
     };
-    window.flama.init();
 
     /**
      * Muestra o oculta un elemento que soporte la propiedad visible.
@@ -162,5 +197,25 @@ $(function(){
     ){
         return $(this).attr(attr, value === undefined ? attr : value);
     };
+
+    /**
+     * Setea eventos para un selector prototipo
+     * 
+     * @returns {jQuery element}
+     */
+    $.fn.selector = function (){
+        var selector = $(this);
+        if(!selector.data('flama-selector-events')){
+            selector.data('flama-selector-events', true).on('update', function(){
+                $(this).siblings('fl-select').text($(this).find('option:selected').text());
+            }).on('change', function(){
+                $(this).trigger('update');
+            }).trigger('update');
+        }
+        return selector;
+    };
+
+    // Iniciar flama
+    window.flama.init();
 
 })
