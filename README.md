@@ -12,6 +12,8 @@ y declarativas sin dependencia de framework.
 
 ``` html
 <link rel="stylesheet" href="dist/flama.css">
+<script src="https://code.jquery.com/jquery-4.0.0.min.js" ></script>
+<script src="/flama-css/flama.js" ></script>
 ```
 
 ### NPM
