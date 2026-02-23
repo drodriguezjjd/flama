@@ -1,5 +1,7 @@
 /**
  * Flama depende de jQuery
+ * 
+ * @author Diego Rodriguez <diego.rodriguez.gomez@gmail.com>
  */
 $(function(){
 
@@ -29,6 +31,24 @@ $(function(){
                 }
             }
         },
+        /**
+         * Muestra un mensaje modal
+         * 
+         * @param {object}         options 
+         * @param {boolean|string} options.icon    Nombre del icono a usar, uno de /flama/img/{options.icon}.png
+         * @param {boolean|string} options.title   Titulo de la ventana
+         * @param {boolean|string} options.message Mensaje principal
+         * @param {array}          options.actions Lista de botones
+         * @param {string}              options.actions.text    Texto del boton
+         * @param {string}              options.actions.type    Tipo del boton, '' | outline | disabled
+         * @param {string}              options.actions.event   Nombre del evento que causa el boton sobre la ventana de mensaje
+         * @param {boolean}             options.actions.closes  Si True el botón cierra la ventana
+         * @param {function}            options.actions.onPress Delegado de click sobre el boton (index, action) => {}
+         * 
+         * @event close Cuando se cierra la ventana
+         * 
+         * @returns {jQuery element}
+         */
         message:function(
             options
         ){
@@ -83,6 +103,17 @@ $(function(){
             );
             return modal.appendTo('body').visible();
         },
+        /**
+         * Muestra un mensaje modal de alerta
+         * 
+         * @see   window.flama.message
+         * 
+         * @param {string|object} options Objeto de configuración o mensaje principal de la alerta
+         * 
+         * @event accept Cuando se cierra la ventana
+         * 
+         * @returns {jQuery element}
+         */
         alert:function(
             options
         ){
@@ -105,12 +136,24 @@ $(function(){
                 ]
             }, options));
         },
+        /**
+         * Muestra un mensaje modal de confirmacion
+         * 
+         * @see   window.flama.message
+         * 
+         * @param {string|object} options Objeto de configuración o mensaje principal de la confirmación
+         * 
+         * @event accept Cuando se acepta la ventana
+         * @event cancel Cuando se cancela la ventana
+         * 
+         * @returns {jQuery element}
+         */
         confirm:function(
             options
         ){
             if(typeof options == 'string'){
                 options = {
-                    title:'Mensaje del sistema',
+                    title:'Confirmación',
                     message:options
                 };
             }
@@ -133,8 +176,13 @@ $(function(){
                 ]
             }, options));
         },
+        /**
+         * Inicia configuraciones básicas opcionales
+         * 
+         * @return {void}
+         */
         init:function(){
-            $('fl-input > select').selector();
+            $('html').flama();
         }
     };
 
@@ -213,6 +261,17 @@ $(function(){
             }).trigger('update');
         }
         return selector;
+    };
+
+    /**
+     * Ejecuta configuraciones iniciales opcionales
+     * 
+     * @returns {jQuery element}
+     */
+    $.fn.flama = function (){
+        var element = $(this);
+        element.find('fl-input > select').selector();
+        return element;
     };
 
     // Iniciar flama

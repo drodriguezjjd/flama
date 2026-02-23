@@ -1,3 +1,8 @@
+/**
+ * Libreria de componentes con estándares de Banco Santander
+ *
+ * @author Diego Rodriguez <diego.rodriguez.gomez@gmail.com>
+ */
 @import url('./icon/icons.css');
 @import url('./payment/payments.css');
 :root {
